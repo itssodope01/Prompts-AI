@@ -93,15 +93,15 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         ))}
       </p>
       {session?.user?.id === post.creator._id && pathname === "/profile" && (
-        <div className="flex gap-2 mt-2">
+        <div className="flex gap-4 mt-2">
           <p
-            className="font-inter text-sm cursor-pointer"
+            className="font-inter text-sm cursor-pointer hover:text-blue-500"
             onClick={() => handleEdit && handleEdit(post)}
           >
             Edit
           </p>
           <p
-            className="font-inter text-sm cursor-pointer"
+            className="font-inter text-sm cursor-pointer hover:text-red-500"
             onClick={() => handleDelete && handleDelete(post)}
           >
             Delete

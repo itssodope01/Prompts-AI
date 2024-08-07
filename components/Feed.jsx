@@ -72,9 +72,6 @@ const Feed = () => {
   };
 
   const handleTagClick = (tag) => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("profTagRef", tag);
-    }
     const newFilteredPosts = posts.filter((post) =>
       post.tag.toLowerCase().includes(tag.toLowerCase())
     );
@@ -92,6 +89,10 @@ const Feed = () => {
           value={searchText}
           onChange={handleSearchChange}
           required
+          onKeyDown={(e) => {
+            if (e.key === "Enter") e.preventDefault();
+            handleSearchChange(e);
+          }}
         />
       </form>
       <PromptCardList
