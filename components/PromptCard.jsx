@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Copy from "@/public/assets/icons/copy.svg";
 import Tick from "@/public/assets/icons/tick.svg";
 
@@ -12,6 +12,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const { data: session } = useSession();
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(post.prompt);
@@ -21,10 +22,29 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     }, 900);
   };
 
+  const handleUserProfileClick = () => {
+    if (post?.creator?._id) {
+      if (session?.user?.id === post.creator._id) {
+        router.push("/profile");
+        return;
+      }
+      router.push(`/user/${post.creator._id}`);
+    }
+  };
+
+  if (!post || !post.creator) {
+    return null; // Render nothing if post or creator is undefined
+  }
+
+  const tagsArray = post.tag.split(" ");
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-4">
-        <div className="flex justify-start items-center flex-1 gap-3 cursor-pointer">
+        <div
+          className="flex justify-start items-center flex-1 gap-3 cursor-pointer"
+          onClick={handleUserProfileClick}
+        >
           <Image
             src={post.creator.image}
             alt="Profile Picture"
@@ -52,13 +72,25 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         </div>
       </div>
       <p className="my-4 font-satoshi text-gray-100">{post.prompt}</p>
-      <p
-        className="text-sm font-inter orange_gradient cursor-pointer"
-        onClick={() => {
-          handleTagClick && handleTagClick(post.tag);
-        }}
-      >
-        {post.tag}
+      <p className="text-sm font-inter orange_gradient cursor-pointer">
+        {tagsArray.map((element) => (
+          <span
+            key={element}
+            onClick={() => {
+              if (
+                pathname === "/profile" ||
+                pathname === `/user/${post.creator._id}`
+              ) {
+                sessionStorage.setItem("profTagRef", element);
+                router.push(`/`);
+                return;
+              }
+              handleTagClick && handleTagClick(element);
+            }}
+          >
+            {element}{" "}
+          </span>
+        ))}
       </p>
       {session?.user?.id === post.creator._id && pathname === "/profile" && (
         <div className="flex gap-2 mt-2">

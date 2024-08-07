@@ -23,12 +23,25 @@ const Feed = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch
+    // Fetch posts from the API
     const fetchPosts = async () => {
       try {
         const res = await fetch("/api/prompt");
         const data = await res.json();
-        setPosts(data); // Ensure posts is an array
+        setPosts(data);
+
+        // Access sessionStorage only on the client side
+        if (typeof window !== "undefined") {
+          const storedProfTagRef = sessionStorage.getItem("profTagRef") || "";
+          if (storedProfTagRef) {
+            const initialFilteredPosts = data.filter((post) =>
+              post.tag.toLowerCase().includes(storedProfTagRef.toLowerCase())
+            );
+            setFilteredPosts(initialFilteredPosts);
+            setSearchText(storedProfTagRef);
+            sessionStorage.removeItem("profTagRef");
+          }
+        }
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       }
@@ -37,34 +50,36 @@ const Feed = () => {
   }, []);
 
   const handleSearchChange = (e) => {
-    setSearchText(e.target.value.toLowerCase());
-
+    const searchText = e.target.value;
+    const formattedSearchText = searchText.toLowerCase();
+    setSearchText(searchText);
+    if (searchText === "") {
+      setFilteredPosts([]);
+      return;
+    }
     try {
-      // Create a Set to ensure all posts are unique
-      const filteredPostsSet = new Set();
-
-      // Filter posts based on the search text matching prompt, tag, creator's name, or username
-      posts.forEach((post) => {
-        const searchText = e.target.value.toLowerCase();
-        if (
-          post.prompt.toLowerCase().includes(searchText) ||
-          post.tag.toLowerCase().includes(searchText) ||
-          post.creator.name.toLowerCase().includes(searchText) ||
-          post.creator.username.toLowerCase().includes(searchText)
-        ) {
-          filteredPostsSet.add(post);
-        }
-      });
-
-      // Convert Set back to an array and update the state
-      setFilteredPosts(Array.from(filteredPostsSet));
+      const newFilteredPosts = posts.filter(
+        (post) =>
+          post.prompt.toLowerCase().includes(formattedSearchText) ||
+          post.tag.toLowerCase().includes(formattedSearchText) ||
+          post.creator.name.toLowerCase().includes(formattedSearchText) ||
+          post.creator.username.toLowerCase().includes(formattedSearchText)
+      );
+      setFilteredPosts(newFilteredPosts);
     } catch (error) {
       console.error("Failed to search for posts:", error);
     }
+  };
 
-    if (e.target.value === "") {
-      setFilteredPosts([]);
+  const handleTagClick = (tag) => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("profTagRef", tag);
     }
+    const newFilteredPosts = posts.filter((post) =>
+      post.tag.toLowerCase().includes(tag.toLowerCase())
+    );
+    setSearchText(tag);
+    setFilteredPosts(newFilteredPosts);
   };
 
   return (
@@ -81,7 +96,7 @@ const Feed = () => {
       </form>
       <PromptCardList
         data={filteredPosts.length > 0 ? filteredPosts : posts}
-        handleTagClick={() => {}}
+        handleTagClick={handleTagClick}
       />
     </section>
   );
