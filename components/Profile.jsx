@@ -4,15 +4,6 @@ import React from "react";
 import Image from "next/image";
 import PromptCard from "@/components/PromptCard";
 
-interface ProfileProps {
-  name: string;
-  email: string;
-  userImage: string;
-  data: any[];
-  handleEdit: (post: Object) => void;
-  handleDelete: (post: Object) => void;
-}
-
 const Profile = ({
   name,
   email,
@@ -20,7 +11,7 @@ const Profile = ({
   data,
   handleEdit,
   handleDelete,
-}: ProfileProps) => {
+}) => {
   return (
     <section className="w-full p-4">
       <h1 className="head_text text-left mb-4">
