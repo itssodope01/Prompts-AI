@@ -19,7 +19,7 @@ interface FormProps {
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
   return (
-    <section className="w-full max-w-full flex-start flex-col">
+    <section className="w-full max-w-full flex-start flex-col mb-10 sm:mb-0">
       <h1 className="head_text text-left orange_gradient">{type} Post</h1>
       <p className="desc text-left max-w-md">
         Share amazing Prompts with the world, and let your imagination run wild
@@ -28,7 +28,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
 
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl mt-8 flex flex-col gap-8 glassmorphism"
+        className="w-full max-w-2xl mt-6 sm:mt-10 flex flex-col gap-8 glassmorphism"
       >
         <label>
           <span className="font-satoshi font-semibold text-base">
@@ -61,7 +61,9 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
             disabled={submitting}
             className="bg-primary-orange rounded-full text-white text-center px-4 py-1.5"
           >
-            {submitting ? `${type}ing` : `${type}`}
+            {submitting
+              ? `${type === "edit" ? "edit" : "creat"}ing`
+              : `${type}`}
           </button>
         </div>
       </form>

@@ -19,7 +19,7 @@ const Profile = ({
         <span className="orange_gradient">Profile</span>
       </h1>
 
-      <div className="flex flex-col lg:flex-row gap-0 lg:gap-20 items-start lg:mt-10">
+      <div className="flex flex-col md:flex-row gap-0 md:gap-20 items-start md:mt-10">
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
           <Image
             src={userImage || "/assets/images/logo.svg"}
@@ -29,11 +29,13 @@ const Profile = ({
             className="object-cover rounded-md self-start"
           />
           <h3 className="mt-4 text-2xl">{name}</h3>
-          <p className="text-gray-500 text-lg">@{username}</p>
-          <p className="text-gray-500 text-lg">{email}</p>
+          <p className="text-gray-500 text-lg ">
+            <span className="flex self-start">@{username}</span>
+            <span>{email}</span>
+          </p>
         </div>
 
-        <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4 lg:mt-0 w-full">
+        <div className="prompt_layout_profile">
           {data.map((post) => (
             <PromptCard
               key={post._id}

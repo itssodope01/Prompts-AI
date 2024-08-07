@@ -5,7 +5,7 @@ import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-12 prompt_layout">
+    <div className="mt-2 sm:mt-12 prompt_layout w-full sm:w-auto">
       {data.map((post) => (
         <PromptCard
           key={post._id}

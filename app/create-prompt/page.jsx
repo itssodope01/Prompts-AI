@@ -37,7 +37,7 @@ const CreatePrompt = () => {
           prompt: "",
           tag: "",
         });
-        router.push("/");
+        router.push("/profile");
       }
     } catch (error) {
       console.error(error);

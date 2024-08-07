@@ -31,11 +31,11 @@ body {
 }
 
 .black_btn {
-  @apply rounded-full border border-white bg-white py-1.5 px-5 text-black transition-all hover:bg-[#1a1a1a] hover:text-white text-center text-sm font-inter flex items-center justify-center;
+  @apply rounded-lg border border-white bg-white py-1.5 px-5 text-black transition-all hover:bg-[#1a1a1a] hover:text-white text-center text-sm font-inter flex items-center justify-center;
 }
 
 .outline_btn {
-  @apply rounded-full border border-white bg-transparent py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+  @apply rounded-lg border border-white bg-transparent py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
 }
 
 .head_text {
@@ -74,6 +74,10 @@ body {
   @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
 }
 
+.prompt_layout_profile {
+  @apply space-y-6 py-8 lg:columns-2 lg:gap-6 2xl:columns-3;
+}
+
 /* Feed Component */
 .feed {
   @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
@@ -81,11 +85,13 @@ body {
 
 /* Form Component */
 .form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-400 outline-0;
+  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm bg-gray-800 text-gray-300 outline-0;
+  resize: none;
 }
 
 .form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-400 outline-0;
+  @apply w-full flex rounded-lg mt-2 p-3 text-sm bg-gray-800 text-gray-300 outline-0;
+  resize: none;
 }
 
 /* Nav Component */
