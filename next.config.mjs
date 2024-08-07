@@ -20,6 +20,8 @@ const nextConfig = {
     };
     return config;
   },
+  basePath: "/Prompt-AI",
+  assetPrefix: "/Prompt-AI/",
 };
 
 export default nextConfig;
