@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import TwitterProvider from "next-auth/providers/twitter"; // Import Twitter provider
 import { connectToDB } from "@/utils/database";
 import User from "@/models/user";
 import { v4 as uuidv4 } from "uuid";
@@ -10,11 +9,6 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET,
-      version: "2.0",
     }),
   ],
   callbacks: {
@@ -30,13 +24,16 @@ const handler = NextAuth({
       try {
         await connectToDB();
 
+        // Check if the user already exists in the database
         const userExists = await User.findOne({ email: profile.email });
 
+        // If the user does not exist, create a new user with a unique username
         if (!userExists) {
           let baseUsername = profile.name.replace(" ", "").toLowerCase();
           let username = baseUsername;
           let userExistsWithUsername = await User.findOne({ username });
 
+          // Append a unique identifier if the username already exists
           while (userExistsWithUsername) {
             username = `${baseUsername}${uuidv4().slice(0, 8)}`;
             userExistsWithUsername = await User.findOne({ username });
