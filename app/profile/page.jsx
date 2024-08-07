@@ -9,6 +9,7 @@ const MyProfile = () => {
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,11 +21,31 @@ const MyProfile = () => {
         setPosts(data);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProfile();
   }, [session?.user?.id]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-2 sm:gap-3 max-w-[400px] mx-auto w-full">
+        {[0, 1, 2].map((val) => {
+          return (
+            <div
+              key={val}
+              className={
+                "rounded-full h-2 sm:h-3 orange_gradient loading " +
+                `loading${val}`
+              }
+            ></div>
+          );
+        })}
+      </div>
+    );
+  }
 
   const handleDelete = async (post) => {
     const confirmed = confirm("Are you sure you want to delete this prompt?");

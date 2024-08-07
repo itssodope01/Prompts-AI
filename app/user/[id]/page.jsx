@@ -28,7 +28,21 @@ const UserProfile = ({ params }) => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col gap-2 sm:gap-3 max-w-[400px] mx-auto w-full">
+        {[0, 1, 2].map((val) => {
+          return (
+            <div
+              key={val}
+              className={
+                "rounded-full h-2 sm:h-3 orange_gradient loading " +
+                `loading${val}`
+              }
+            ></div>
+          );
+        })}
+      </div>
+    );
   }
 
   if (!posts.length) {

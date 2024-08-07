@@ -28,7 +28,7 @@ const Profile = ({
             height={100}
             className="object-cover rounded-md self-start"
           />
-          <h3 className="mt-4 text-2xl">{name}</h3>
+          <h3 className="mt-4 text-2xl self-start ">{name}</h3>
           <p className="text-gray-500 text-lg ">
             <span className="flex self-start">@{username}</span>
             <span>{email}</span>
