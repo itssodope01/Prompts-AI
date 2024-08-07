@@ -3,12 +3,7 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
-interface PromptCardListProps {
-  data: any[];
-  handleTagClick: (tag: string) => void;
-}
-
-const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
+const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-12 prompt_layout">
       {data.map((post) => (
@@ -24,7 +19,7 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     // Fetch
@@ -40,7 +35,7 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
 

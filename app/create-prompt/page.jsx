@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Form from "@/components/Form";
 
 const CreatePrompt = () => {
-  const { data: session } = useSession(); // Call useSession at the top level
+  const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     prompt: "",
@@ -15,7 +15,7 @@ const CreatePrompt = () => {
 
   const router = useRouter();
 
-  const createPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
+  const createPrompt = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 

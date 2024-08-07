@@ -7,29 +7,7 @@ import { usePathname } from "next/navigation";
 import Copy from "@/public/assets/icons/copy.svg";
 import Tick from "@/public/assets/icons/tick.svg";
 
-interface PromptCardProps {
-  post: {
-    _id: string;
-    prompt: string;
-    tag: string;
-    creator: {
-      _id: string;
-      username: string;
-      email: string;
-      image: string;
-    };
-  };
-  handleTagClick?: (tag: string) => void;
-  handleEdit?: (post: Object) => void;
-  handleDelete?: (post: Object) => void;
-}
-
-const PromptCard = ({
-  post,
-  handleTagClick,
-  handleEdit,
-  handleDelete,
-}: PromptCardProps) => {
+const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState(false);
 
   const { data: session } = useSession();
