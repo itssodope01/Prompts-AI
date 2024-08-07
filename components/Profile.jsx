@@ -6,6 +6,7 @@ import PromptCard from "@/components/PromptCard";
 
 const Profile = ({
   name,
+  username,
   email,
   userImage,
   data,
@@ -28,6 +29,7 @@ const Profile = ({
             className="object-cover rounded-md self-start"
           />
           <h3 className="mt-4 text-2xl">{name}</h3>
+          <p className="text-gray-500 text-lg">@{username}</p>
           <p className="text-gray-500 text-lg">{email}</p>
         </div>
 

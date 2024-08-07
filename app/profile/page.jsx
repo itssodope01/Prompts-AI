@@ -53,6 +53,7 @@ const MyProfile = () => {
   return (
     <Profile
       name={session?.user?.name || ""}
+      username={session?.user?.username || ""}
       email={session?.user?.email || ""}
       userImage={session?.user?.image || ""}
       data={posts}

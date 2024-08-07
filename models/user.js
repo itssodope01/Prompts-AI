@@ -12,8 +12,12 @@ const UserSchema = new Schema({
     unique: [true, "Username already exists"],
     match: [
       /^[a-zA-Z0-9]{5,20}$/,
-      "Username must be between 5 and 12 characters and can only contain letters and numbers",
+      "Username must be between 5 and 20 characters and can only contain letters and numbers",
     ],
+  },
+  name: {
+    type: String,
+    required: [true, "Name is required"],
   },
   image: {
     type: String,

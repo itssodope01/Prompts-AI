@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
 import "@/styles/globals.css";
+import favIcon from "@/public/assets/images/logo.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={favIcon.src} type="image/svg+xml" />
+      </head>
       <body>
         <Provider>
           <main className="app">
