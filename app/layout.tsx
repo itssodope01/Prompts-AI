@@ -6,7 +6,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Prompts AI",
-  description: "Discover and Share AI prompts",
+  description:
+    "AI prompting tool for modern world to discover, create and share creative prompts",
 };
 
 export default function RootLayout({

@@ -17,12 +17,16 @@ const PromptCardList = ({ data, handleTagClick }) => {
   );
 };
 
-const Feed = () => {
-  const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+const Feed = ({
+  posts,
+  setPosts,
+  filteredPosts,
+  setFilteredPosts,
+  searchText,
+  setSearchText,
+  loading,
+  setLoading,
+}) => {
   useEffect(() => {
     fetchPosts();
 
