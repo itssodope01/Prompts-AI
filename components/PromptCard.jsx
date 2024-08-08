@@ -33,10 +33,13 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   };
 
   if (!post || !post.creator) {
-    return null; // Render nothing if post or creator is undefined
+    return null;
   }
 
   const tagsArray = post.tag.split(" ");
+  const clearedTagsArray = tagsArray.filter(
+    (tag) => tag.startsWith("#") && tag.length > 1
+  );
 
   return (
     <div className="prompt_card">
@@ -73,7 +76,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       </div>
       <p className="my-4 font-satoshi text-gray-100">{post.prompt}</p>
       <p className="text-sm font-inter orange_gradient cursor-pointer">
-        {tagsArray.map((element) => (
+        {clearedTagsArray.map((element) => (
           <span
             key={element}
             onClick={() => {

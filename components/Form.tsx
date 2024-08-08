@@ -18,8 +18,11 @@ interface FormProps {
 }
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
+  const MAX_WORDS = 100;
+  const MAX_TAGS = 4;
+
   const handleTagChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let tags = e.target.value;
+    let tags = e.target.value.trim();
     let tagsArray = tags.split(" ").filter((tag) => tag.trim().length > 0);
 
     tagsArray = tagsArray.map((tag) => {
@@ -29,35 +32,49 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
       return tag;
     });
 
+    tagsArray = tagsArray.filter((tag) => tag.length > 1);
+
     tags = tagsArray.join(" ");
 
     setPost({ ...post, tag: tags });
   };
 
   const handleTagKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (
-      e.key === " " ||
-      e.key === "Enter" ||
-      e.key === "Tab" ||
-      e.key === ","
-    ) {
+    const { key, currentTarget } = e;
+
+    if (key === " " || key === "Enter" || key === "Tab" || key === ",") {
       e.preventDefault();
-      const tags = e.currentTarget.value.trim();
-      if (tags.split(" ").length >= 4) {
-        e.preventDefault();
+
+      let tags = currentTarget.value.trim();
+      let tagArray = tags.split(" ");
+
+      if (tagArray.length >= MAX_TAGS) {
         return;
       }
-      if (!tags.endsWith("#")) {
-        setPost({ ...post, tag: `${tags} #` });
-      }
+
+      setPost({ ...post, tag: `${tags} #` });
     }
   };
 
   const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const words = e.target.value.split(/\s+/).filter((word) => word.length > 0);
-    if (words.length <= 100) {
+    if (words.length <= MAX_WORDS) {
       setPost({ ...post, prompt: e.target.value });
     }
+  };
+
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const tagsArray = post.tag.split(" ");
+
+    const cleanedTags = tagsArray.filter((tag) => tag.length > 1);
+
+    const cleanedTagsString = cleanedTags.map((tag) => `${tag}`).join(" ");
+
+    setPost({ ...post, tag: cleanedTagsString });
+
+    handleSubmit(e);
   };
 
   return (
@@ -69,7 +86,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
       </p>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitForm}
         className="w-full max-w-2xl mt-6 sm:mt-10 flex flex-col gap-8 glassmorphism"
       >
         <label>

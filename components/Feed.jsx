@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
+import { set } from "mongoose";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -21,6 +22,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch posts from the API
@@ -30,7 +32,6 @@ const Feed = () => {
         const data = await res.json();
         setPosts(data);
 
-        // Access sessionStorage only on the client side
         if (typeof window !== "undefined") {
           const storedProfTagRef = sessionStorage.getItem("profTagRef") || "";
           if (storedProfTagRef) {
@@ -42,8 +43,10 @@ const Feed = () => {
             sessionStorage.removeItem("profTagRef");
           }
         }
+        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+        setLoading(false);
       }
     };
     fetchPosts();
@@ -78,6 +81,14 @@ const Feed = () => {
     setSearchText(tag);
     setFilteredPosts(newFilteredPosts);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[70vh]">
+        <div className="w-12 h-12 border-4 border-slate-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <section className="feed">
