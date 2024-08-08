@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
@@ -24,32 +24,38 @@ const Feed = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch posts from the API
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("/api/prompt");
-        const data = await res.json();
-        setPosts(data);
-
-        if (typeof window !== "undefined") {
-          const storedProfTagRef = sessionStorage.getItem("profTagRef") || "";
-          if (storedProfTagRef) {
-            const initialFilteredPosts = data.filter((post) =>
-              post.tag.toLowerCase().includes(storedProfTagRef.toLowerCase())
-            );
-            setFilteredPosts(initialFilteredPosts);
-            setSearchText(storedProfTagRef);
-            sessionStorage.removeItem("profTagRef");
-          }
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-        setLoading(false);
-      }
-    };
     fetchPosts();
+
+    return () => {
+      setPosts([]);
+      setFilteredPosts([]);
+      setLoading(true);
+    };
   }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch("/api/prompt");
+      const data = await res.json();
+      setPosts(data);
+
+      if (typeof window !== "undefined") {
+        const storedProfTagRef = sessionStorage.getItem("profTagRef") || "";
+        if (storedProfTagRef) {
+          const initialFilteredPosts = data.filter((post) =>
+            post.tag.toLowerCase().includes(storedProfTagRef.toLowerCase())
+          );
+          setFilteredPosts(initialFilteredPosts);
+          setSearchText(storedProfTagRef);
+          sessionStorage.removeItem("profTagRef");
+        }
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch posts:", error);
+      setLoading(false);
+    }
+  };
 
   const handleSearchChange = (e) => {
     const searchText = e.target.value;
