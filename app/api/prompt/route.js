@@ -8,7 +8,12 @@ export const GET = async () => {
 
     const prompts = await Prompt.find({}).populate("creator");
 
-    return NextResponse.json(prompts, { status: 200 }); // Return the array directly
+    return new NextResponse(JSON.stringify(prompts), {
+      status: 200,
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    });
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
