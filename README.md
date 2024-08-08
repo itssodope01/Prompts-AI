@@ -50,7 +50,7 @@ Deplloyed: [Prompts-AI](https://prompts-ai-ghx7.vercel.app/)
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/share-prompt.git
+   git clone https://github.com/itssodope01/Prompts-AI.git
    ```
 
 2. Navigate to the project directory:
