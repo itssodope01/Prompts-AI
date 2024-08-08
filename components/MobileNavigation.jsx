@@ -14,7 +14,6 @@ const MobileNavigation = ({ isUserLoggedIn, userImage, providers }) => {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -24,20 +23,20 @@ const MobileNavigation = ({ isUserLoggedIn, userImage, providers }) => {
       {isUserLoggedIn ? (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+          className="p-3 text-gray-400 hover:text-gray-600 focus:outline-none"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
       ) : (
         <>
           {providers && (
-            <div className="flex gap-3 md:gap-5">
+            <div className="flex gap-4">
               {Object.values(providers).map((provider) => (
                 <button
                   key={provider.id}
                   type="button"
                   onClick={() => signIn(provider.id)}
-                  className="black_btn"
+                  className="black_btn text-lg py-3 px-6"
                 >
                   Sign In
                 </button>
@@ -46,59 +45,58 @@ const MobileNavigation = ({ isUserLoggedIn, userImage, providers }) => {
           )}
         </>
       )}
-
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 mt-2 w-52 bg-zinc-800 rounded-md shadow-lg py-1 z-10"
+          className="absolute right-0 mt-3 w-64 bg-zinc-800 rounded-lg shadow-lg py-2 z-10"
         >
           {isUserLoggedIn ? (
             <>
-              <div className="px-4 py-2 border-b border-gray-500">
+              <div className="px-6 py-4 border-b border-gray-500">
                 <Link href="/profile" onClick={() => setIsOpen(false)}>
                   <Image
                     src={userImage || "/assets/images/logo.svg"}
                     alt="user"
-                    width={40}
-                    height={40}
+                    width={60}
+                    height={60}
                     className="rounded-full mx-auto"
                   />
                 </Link>
               </div>
               <Link
                 href="/profile"
-                className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                className="block px-6 py-3 text-base text-white hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >
-                <User className="inline-block mr-2" size={16} /> My Profile
+                <User className="inline-block mr-3" size={20} /> My Profile
               </Link>
               <Link
                 href="/create-prompt"
-                className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+                className="block px-6 py-3 text-base text-white hover:bg-gray-700"
                 onClick={() => setIsOpen(false)}
               >
-                <PlusCircle className="inline-block mr-2" size={16} /> Create
+                <PlusCircle className="inline-block mr-3" size={20} /> Create
                 Prompt
               </Link>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+                className="block w-full text-left px-6 py-3 text-base text-white hover:bg-gray-700"
               >
-                <LogOut className="inline-block mr-2" size={16} /> Sign Out
+                <LogOut className="inline-block mr-3" size={20} /> Sign Out
               </button>
             </>
           ) : (
             <>
               {providers && (
-                <div className="flex gap-3 md:gap-5">
+                <div className="px-4 py-2">
                   {Object.values(providers).map((provider) => (
                     <button
                       key={provider.id}
                       type="button"
                       onClick={() => signIn(provider.id)}
-                      className="black_btn"
+                      className="block w-full text-left px-6 py-3 text-base text-white hover:bg-gray-700 mb-2"
                     >
-                      Sign In
+                      Sign In with {provider.name}
                     </button>
                   ))}
                 </div>
