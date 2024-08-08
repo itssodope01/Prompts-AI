@@ -29,13 +29,13 @@ const Profile = ({
             className="object-cover rounded-md self-start"
           />
           <h3 className="mt-4 text-2xl self-start ">{name}</h3>
-          <p className="text-gray-500 text-lg ">
+          <p className="text-gray-500 text-lg flex self-start flex-col">
             <span className="flex self-start">@{username}</span>
-            <span>{email}</span>
+            {email && <span>{email}</span>}
           </p>
         </div>
 
-        <div className="prompt_layout_profile">
+        <div className="prompt_layout_profile w-full">
           {data.map((post) => (
             <PromptCard
               key={post._id}

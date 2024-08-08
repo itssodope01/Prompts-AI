@@ -75,7 +75,7 @@ body {
 }
 
 .prompt_layout_profile {
-  @apply space-y-6 py-8 lg:columns-2 lg:gap-6 2xl:columns-3;
+  @apply space-y-6 py-8 lg:columns-2 lg:gap-6 2xl:columns-3 w-full;
 }
 
 /* Feed Component */

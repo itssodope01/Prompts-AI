@@ -55,7 +55,7 @@ const UserProfile = ({ params }) => {
     <Profile
       name={post.creator.name || ""}
       username={post.creator.username || ""}
-      email={post.creator.email || ""}
+      email={""}
       userImage={post.creator.image || ""}
       data={posts}
     />
