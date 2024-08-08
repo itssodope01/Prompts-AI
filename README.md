@@ -56,7 +56,7 @@ Deplloyed: [Prompts-AI](https://prompts-ai-ghx7.vercel.app/)
 2. Navigate to the project directory:
 
    ```bash
-   cd share-prompt
+   cd Prompts-AI
    ```
 
 3. Install dependencies:
