@@ -2,6 +2,8 @@
 
 Prompt-AI is a Full Stack Web application built with Next.js and MongoDB capable of performing CRUD Operations. Users can manage their profiles and prompts through an intuitive interface. This application uses Google authentication and is designed to be responsive across various screen sizes.
 
+Deplloyed: [Prompts-AI](https://prompts-ai-ghx7.vercel.app/)
+
 ## Table of Contents
 
 - [Features](#features)
@@ -24,6 +26,8 @@ Prompt-AI is a Full Stack Web application built with Next.js and MongoDB capable
 - **CRUD Operations**: Create, read, update, and delete prompts.
 - **Responsive Design**: Optimized for medium and small screen sizes.
 - **Profile Management**: Users can view and manage their prompts from their profile.
+- **Explore**: Explore and visit other user's profile and see their Prompts.
+- **Search**: Search or Click on Prompt Tags to view specific topic you are interrested in.
 - **Real-Time Updates**: Fetch and update data dynamically with client-side and server-side operations.
 
 ## Technologies Used
