@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
-import { set } from "mongoose";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
